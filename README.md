@@ -79,3 +79,5 @@ _We also allow comments in the test file using back-ticks(\`) as demonstrated ab
 ![image](https://user-images.githubusercontent.com/2994406/33092602-a384a25a-cec8-11e7-85fc-a25a69f8ddd2.png)
 
 <hr>
+
+## Contibutions
