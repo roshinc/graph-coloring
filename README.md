@@ -80,4 +80,25 @@ _We also allow comments in the test file using back-ticks(\`) as demonstrated ab
 
 <hr>
 
-## Contibutions
+## Contributions
+
+### Ideation:
+Finding the algorithm, walking through it on the white-board, deciding how we take the input, determining how we write the input & output.
+
+**Who:** Gokul Ambigapathy, Roshin Cherian, Lakshmi Priya Hariharan, Sean Lachhander, Siddheshwar Kanagamoorthy
+
+### Programing: 
+
+1. **I/O**
+		Reading from file, and make it into a usable format.
+		
+    **Who:** Gokul Ambigapathy, Lakshmi Priya Hariharan
+2. **Algorithm**
+		Programing/Debugging the algorithm, using the data from the previous step to color the graph and show output.
+		
+    **Who:** Roshin Cherian, Sean Lachhander, Siddheshwar Kanagamoorthy
+
+### Wrap-Up
+Creating more test cases, creating/updating readme, testing, documentation.
+
+**Who:** Gokul Ambigapathy, Roshin Cherian, Lakshmi Priya Hariharan, Sean Lachhander, Siddheshwar Kanagamoorthy
