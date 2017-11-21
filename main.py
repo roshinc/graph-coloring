@@ -1,117 +1,146 @@
 from Vertex import Vertex
-import Edge
 
+# Keeps track of all the vertices we have seen
 seen_list = list()
 
 
+def add_two_vertices(first_vertex_to_add, second_vertex_to_add):
+    add_if_not_in(first_vertex_to_add)
+    add_if_not_in(second_vertex_to_add)
+
+    add_adjacent_vertex(first_vertex_to_add, second_vertex_to_add)
+    add_adjacent_vertex(second_vertex_to_add, first_vertex_to_add)
+
+
+def add_if_not_in(vertex_to_add_to_seen_list):
+    if vertex_to_add_to_seen_list not in seen_list:
+        seen_list.append(vertex_to_add_to_seen_list)
+
+
 def get_index(vertex_to_find):
-    for found_index in range(0, len(seen_list)):
-        if seen_list[found_index] == vertex_to_find:
-            return found_index
+    for i in range(0, len(seen_list)):
+        if seen_list[i] == vertex_to_find:
+            return i
 
 
-def get_degree(vertex_to_get_degree_of):
-    return vertex_to_get_degree_of.degree
+def add_adjacent_vertex(home_vertex, adjacent_vertex):
+    seen_list[get_index(home_vertex)].add_adjacent(seen_list[get_index(adjacent_vertex)])
 
 
-def find_uncolored(partially_colored):
-    uncolored = list()
-    for vertex_to_check_color in partially_colored:
-        if vertex_to_check_color.color == -1:
-            uncolored.append(vertex_to_check_color)
-    return uncolored
+def try_to_color(color_to_set, vertex_to_color):
+    for adjacent_vertex in vertex_to_color.adjacent_vertices:
+        if adjacent_vertex.color == color_to_set:
+            return
+    vertex_to_color.set_color(color_to_set)
 
 
-with open("input") as input_file:
-    # For every edge in file
-    for edges in input_file:
+def color():
+    """
+    This algorithm can be used to color a simple graph:
+    Continue this process until all vertices are colored.
+    :return:
+    """
 
-        # Get the first and second vertices of the edge
-        (raw_vertice_one, raw_vertice_two) = edges.split(",")
+    # First, list the vertices v1, v2, v3,..., vn in order of decreasing degree so that deg(v1) ≥ deg(v2) ≥···≥ deg(vn).
+    seen_list.sort(key=lambda vertex: vertex.degree, reverse=True)
 
-        first_vertex_obj = Vertex(int(raw_vertice_one))
-        second_vertex_obj = Vertex(int(raw_vertice_two))
+    # Holds the vertices that are not colored yet, at initialization it would be the whole seen list
+    not_colored = seen_list
+    # Color counter, used to identify the colors
+    color_counter = 0
+    # While we still have vertices left to color
+    while not_colored:
+        # Increment the color
+        color_counter += 1
+        # Assign this color to the first vertex in the uncolored list
+        first_vertex_being_colored = not_colored[0]
+        print("First to be colored {}".format(first_vertex_being_colored.name))
+        first_vertex_being_colored.set_color(color_counter)
 
-        if first_vertex_obj not in seen_list:
-            seen_list.append(first_vertex)
-        if second_vertex not in seen_list:
-            seen_list.append(second_vertex)
+        # Assign the same color to the next vertex in the list not adjacent to the first vertex
 
+        # Get a list of all vertices not adjacent to the vertex we just colored
+        not_adjacent = [x for x in not_colored if x not in not_colored[0].adjacent_vertices]
+        # Remove the vertex we already colored
+        not_adjacent.remove(first_vertex_being_colored)
 
+        print("Not adj to {}".format(first_vertex_being_colored.name))
+        for vertex_in_list in not_adjacent:
+            print("{}".format(vertex_in_list))
 
-
-# This algorithm can be used to color a simple graph:
-
-# First, list the vertices v1, v2, v3,..., vn in order of decreasing degree so that deg(v1) ≥ deg(v2) ≥···≥ deg(vn).
-
-
-
-
-"""
-
-# Continue this process until all vertices are colored.
-
-seen_list.sort(key=get_degree, reverse=True)
-color = 1
-
-# Assign color 1 to v1 and to the next vertex in the list not adjacent to v1 (if one exists), and successively to
-# each vertex in the list not adjacent to a vertex already assigned color 1.
-the_first_vertex = seen_list[0]
-the_first_vertex.add_color(color)
-for i in range(0, len(seen_list)):
-    if i != 0:
-        if seen_list[i] not in the_first_vertex.adjacent:
-            seen_list[i].add_color(color)
-
-# Then assign color 2 to the first vertex in the list not already colored.
-# Successively assign color 2 to vertices in the list that have not already been colored and are not adjacent to
-# vertices assigned color 2.
-color += 1
-list_left = find_uncolored(seen_list)
-
-the_first_vertex = list_left[0]
-the_first_vertex.add_color(color)
-for i in range(0, len(list_left)):
-    if i != 0:
-        if list_left[i] not in the_first_vertex.adjacent:
-            list_left[i].add_color(color)
-
-# If uncolored vertices remain, assign color  3 to the first vertex in the list not yet colored,
-# and use color 3 to successively color those vertices not already colored and not adjacent to vertices
-# assigned color 3.
-color += 1
-list_left = find_uncolored(seen_list)
-print("-----------")
-for vertex in list_left[0].adjacent:
-    print(vertex)
-#print(list_left[1])
-print("-----------")
-the_first_vertex = list_left[0]
-the_first_vertex.add_color(color)
-for i in range(0, len(list_left)):
-    if i != 0:
-        if list_left[i] not in the_first_vertex.adjacent:
-            list_left[i].add_color(color)
+        # Color the non adjacent vertices with the same color
+        for vertex_in_list in not_adjacent:
+            try_to_color(color_counter, vertex_in_list)
+        # Get the list of vertices still left to be colored (if any)
+        not_colored = [x for x in seen_list if x.color is None]
+        break
 
 
-"""
+    """
+    # Assign color 1 to v1 and to the next vertex in the list not adjacent to v1 (if one exists),
+    # and successively to each vertex in the list not adjacent to a vertex already assigned color 1.
+    color_counter = 1
+    vertex_being_colored = seen_list[0]
+    vertex_being_colored.add_color(color_counter)
+    not_adjacent = [x for x in seen_list if x not in seen_list[0].adjacent_vertices]
+    not_adjacent.remove(vertex_being_colored)
 
-""""
-for i in range(0, len(seen_list)):
-    color += 1
-    
-    vertex_in_question = seen_list[i]
-    vertex_in_question.add_color(color)
-    for j in range(0, len(seen_list)):
-        if i != j:
-            if seen_list[i] not in vertex_in_question.adjacent:
-                seen_list[i].add_color(color)
+    for vertex_in_list in not_adjacent:
+        vertex_in_list.add_color(color_counter)
 
-"""
-"""
-for vertex in seen_list:
-    print(vertex)
+    # Then assign color 2 to the first vertex in the list not already colored.
+    # Successively assign color 2 to vertices in the list that have not already been colored
+    # and are not adjacent to vertices assigned color 2.
+    color_counter += 1
 
-"""
+    not_colored = [x for x in seen_list if x.color is None]
+
+    vertex_being_colored = not_colored[0]
+    vertex_being_colored.add_color(color_counter)
+
+    not_adjacent = [x for x in not_colored if x not in not_colored[0].adjacent_vertices]
+    not_adjacent.remove(vertex_being_colored)
+
+    for vertex_in_list in not_adjacent:
+        vertex_in_list.add_color(color_counter)
+
+    # If uncolored vertices remain, assign color 3 to the first vertex in the list not yet colored,
+    #  and use color 3 to successively color those vertices not already colored and not adjacent to vertices
+    #  assigned color 3.
+    color_counter += 1
+
+    not_colored = [x for x in seen_list if x.color is None]
+
+    vertex_being_colored = not_colored[0]
+    vertex_being_colored.add_color(color_counter)
+
+    not_adjacent = [x for x in not_colored if x not in not_colored[0].adjacent_vertices]
+    not_adjacent.remove(vertex_being_colored)
+
+    for vertex_in_list in not_adjacent:
+        vertex_in_list.add_color(color_counter)
+    """
 
 
+def main():
+    # Open the input file reading
+    with open("test/simple_two.graph") as graph_file:
+        for edge in graph_file:
+            # Ignore comments
+            if '`' not in edge:
+                (name_first_vertex, name_second_vertex) = edge.strip().split(",")
+                first_vertex = Vertex(int(name_first_vertex))
+                second_vertex = Vertex(int(name_second_vertex))
+
+                # Add to seen list if not in there
+                add_two_vertices(first_vertex, second_vertex)
+                # print("{},{}".format(first_vertex, second_vertex))
+    color()
+    # seen_list.sort(key=lambda vertex: vertex.color)
+    print("=======Colored==========")
+    for vertex_in_list in seen_list:
+        print("{}".format(vertex_in_list))
+
+
+if __name__ == "__main__":
+    main()
