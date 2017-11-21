@@ -19,6 +19,7 @@ class Vertex:
         """
         self.adjacent_vertices.append(adjacent_vertex)  # Adds adjacent vertex to adjacency list
         self.degree += 1  # Increase degree every time we add an adjacent vertex
+        # self.adjacent_vertices = sorted(self.adjacent_vertices, key=lambda vertex: vertex.degree, reverse=True)
 
     def set_color(self, color):
         """
@@ -44,8 +45,8 @@ class Vertex:
         """
         adjacent_vertices_str = ""
         for adjacent_vertex in self.adjacent_vertices:
-            adjacent_vertices_str += str(adjacent_vertex.name)
+            adjacent_vertices_str += str(adjacent_vertex.name) + ", "
         return "{} [{}]".format(self.name, adjacent_vertices_str)
         """
-        return "{} [{}]".format(self.name, self.color)
+        return "Vertex {} has Color {}".format(self.name, self.color)
 
