@@ -94,7 +94,7 @@ Finding the algorithm, walking through it on the white-board, deciding how we ta
 		
     **Who:** Gokul Ambigapathy, Lakshmi Priya Hariharan
 2. **Algorithm**
-		Programing/Debugging the algorithm, using the data from the previous step to color the graph and show output.
+		Programing/Debugging the algorithm, using the data from the previous step to make Vertex objects, and color the graph and show output.
 		
     **Who:** Roshin Cherian, Sean Lachhander, Siddheshwar Kanagamoorthy
 
