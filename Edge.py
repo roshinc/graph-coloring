@@ -5,7 +5,7 @@ class Edge:
     """
     def __init__(self, to_vertex, cost):
         """
-        Constructor for Vertex, initializes class variables.
+        Constructor for Edge, initializes class variables.
         :param name: name of the vertex, expected to be int
         """
         self.to_vertex = to_vertex  # Hold the vertex that is adjacent to this vertex

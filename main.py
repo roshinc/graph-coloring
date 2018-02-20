@@ -11,6 +11,7 @@ def add_two_vertices(first_vertex_to_add, second_vertex_to_add, cost_of_travel):
     Ensure that the given vertices are in the seen list and are aware of their adjacent relation
     :param first_vertex_to_add: the first vertex given
     :param second_vertex_to_add: the second vertex given
+    :param cost_of_travel: the cost of the edge
     """
     # If these vertices are not in the seen list add them
     add_if_not_in(first_vertex_to_add)
@@ -190,7 +191,7 @@ def depth_first_search(v, e):
     :param v: Start Vertex
     :param e: End Vertex
     """
-    # dictionary to keep track of
+    # dictionary to keep track of visited node
     visited_dict_dfs = dict()
     cost = 0
     path = list()
@@ -232,55 +233,56 @@ def depth_first_search_cost_recurr(v, cost, path, visited, e):
         if seen_list[get_index(i.get_vertex())].name not in visited.keys():
             depth_first_search_cost_recurr(i, cost, path, visited, e)
 
-# The function to do DFS traversal. It uses
-# recursive DFSUtil()
+#
 
 
 def depth_first_search_cost(v, e):
+    """
+    Function to print a BFS of graph from v to e, if it exist
+    :param v: Start Vertex
+    :param e: End Vertex
+    """
 
-    # Mark all the vertices as not visited
-    # visited = [False] * (len(self.graph))
+    # dictionary to keep track of visited node
     visited_dict_dfs = dict()
     cost = 0
     path = list()
 
-    # Call the recursive helper function to print
+    # Call the recursive helper function to do
     # DFS traversal
     depth_first_search_cost_recurr(v, cost, path, visited_dict_dfs, e)
 
 
-
-
 def main():
-    # print("Printing example output based on input in ./test")
-    # print()
+    print("Printing example output based on input in ./test")
+    print()
 
-    # print("●▬▬▬▬ simple_one.graph ▬▬▬▬▬●")
-    # handle_graph_file("test/simple_one.graph")
-    # breadth_first_search(Vertex("a"), Vertex("f"))
-    # print("+++++++++++++++++++++++++++++++++++++")
-    # depth_first_search(Vertex("a"), Vertex("f"))
-    # print("+++++++++++++++++++++++++++++++++++++")
-    # depth_first_search_cost(Vertex("a"), Vertex("f"))
-
-    # print("●▬▬▬▬ simple_two.graph ▬▬▬▬▬●")
-    # handle_graph_file("test/simple_two.graph")
-    # breadth_first_search(Vertex("a"), Vertex("h"))
-    # print("+++++++++++++++++++++++++++++++++++++")
-    # depth_first_search(Vertex("a"), Vertex("h"))
-    # print("+++++++++++++++++++++++++++++++++++++")
-    # depth_first_search_cost(Vertex("a"), Vertex("h"))
-
-    # print("●▬▬▬▬ simple_three.graph ▬▬▬▬▬●")
-    handle_graph_file("test/simple_three.graph")
+    print("●▬▬▬▬ simple_one.graph ▬▬▬▬▬●")
+    handle_graph_file("test/simple_one.graph")
+    print("++++++breadth_first_search++++++")
     breadth_first_search(Vertex("a"), Vertex("f"))
-    print("+++++++++++++++++++++++++++++++++++++")
+    print("+++++depth_first_search+++++")
     depth_first_search(Vertex("a"), Vertex("f"))
     print("+++++++++++++++++++++++++++++++++++++")
     depth_first_search_cost(Vertex("a"), Vertex("f"))
 
-    # print("●▬▬▬▬ simple_four.graph ▬▬▬▬▬●")
-    # handle_graph_file("test/simple_four.graph")
+    print("●▬▬▬▬ simple_two.graph ▬▬▬▬▬●")
+    handle_graph_file("test/simple_two.graph")
+    print("++++++breadth_first_search++++++")
+    breadth_first_search(Vertex("a"), Vertex("h"))
+    print("+++++depth_first_search++++++")
+    depth_first_search(Vertex("a"), Vertex("h"))
+    print("+++++++++++++++++++++++++++++++++++++")
+    depth_first_search_cost(Vertex("a"), Vertex("h"))
+
+    print("●▬▬▬▬ simple_three.graph ▬▬▬▬▬●")
+    handle_graph_file("test/simple_three.graph")
+    print("++++++breadth_first_search++++++")
+    breadth_first_search(Vertex("a"), Vertex("f"))
+    print("+++++depth_first_search+++++")
+    depth_first_search(Vertex("a"), Vertex("f"))
+    print("+++++depth_first_search_cost+++++")
+    depth_first_search_cost(Vertex("a"), Vertex("f"))
 
 
 if __name__ == "__main__":
