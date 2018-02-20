@@ -1,3 +1,4 @@
+# coding: utf-8
 from Vertex import Vertex
 from Edge import Edge
 # Keeps track of all the vertices we have seen
@@ -152,18 +153,25 @@ def depth_first_search_recurr(v, cost, path, visited, e):
         visited[seen_list[get_index(v.get_vertex())].name] = True
         cost += v.get_cost()
         path.append(v.get_vertex().name)
+        # turn v back into a Vertex for use below
         v = seen_list[get_index(v.get_vertex())]
     else:
+        # If it is not a Edge, it is the start node
         visited[v.name] = True
         # print(v.name)
         path.append(v.name)
+    # check if goal state is reached
     if v == e:
         print(path)
         print(cost)
         return
 
+    # Get all adjacent vertices of the pop
+    # vertex s. If a adjacent has not been visited,
+    # then mark it visited and enqueue it
 
-    # to_visit = None
+    # if it is not the head remove the first element as it will reference the parent
+
     if v != head_node:
         to_visit = seen_list[get_index(v)].adjacent_vertices[1:]
     else:
@@ -172,10 +180,24 @@ def depth_first_search_recurr(v, cost, path, visited, e):
     # Recur for all the vertices adjacent to this vertex
     for i in to_visit:
         if seen_list[get_index(i.get_vertex())].name not in visited.keys():
+            # recursive call with adjacent vertex
             depth_first_search_recurr(i, cost, path, visited, e)
 
-# The function to do DFS traversal. It uses
-# recursive DFSUtil()
+
+def depth_first_search(v, e):
+    """
+    Function to print a BFS of graph from v to e, if it exist
+    :param v: Start Vertex
+    :param e: End Vertex
+    """
+    # dictionary to keep track of
+    visited_dict_dfs = dict()
+    cost = 0
+    path = list()
+
+    # Call the recursive helper function to print
+    # DFS traversal
+    depth_first_search_recurr(v, cost, path, visited_dict_dfs, e)
 
 
 def depth_first_search_cost_recurr(v, cost, path, visited, e):
@@ -204,7 +226,7 @@ def depth_first_search_cost_recurr(v, cost, path, visited, e):
     else:
         to_visit = seen_list[get_index(v)].adjacent_vertices
 
-    to_visit = sorted(to_visit, key=lambda ege: ege.get_vertex().degree)
+    to_visit = sorted(to_visit, key=lambda ege: ege.cost)
     # Recur for all the vertices adjacent to this vertex
     for i in to_visit:
         if seen_list[get_index(i.get_vertex())].name not in visited.keys():
@@ -227,17 +249,6 @@ def depth_first_search_cost(v, e):
     depth_first_search_cost_recurr(v, cost, path, visited_dict_dfs, e)
 
 
-def depth_first_search(v, e):
-
-    # Mark all the vertices as not visited
-    # visited = [False] * (len(self.graph))
-    visited_dict_dfs = dict()
-    cost = 0
-    path = list()
-
-    # Call the recursive helper function to print
-    # DFS traversal
-    depth_first_search_recurr(v, cost, path, visited_dict_dfs, e)
 
 
 def main():
@@ -245,12 +256,12 @@ def main():
     # print()
 
     # print("●▬▬▬▬ simple_one.graph ▬▬▬▬▬●")
-    handle_graph_file("test/simple_one.graph")
-    breadth_first_search(Vertex("a"), Vertex("f"))
-    print("+++++++++++++++++++++++++++++++++++++")
-    depth_first_search(Vertex("a"), Vertex("f"))
-    print("+++++++++++++++++++++++++++++++++++++")
-    depth_first_search_cost(Vertex("a"), Vertex("f"))
+    # handle_graph_file("test/simple_one.graph")
+    # breadth_first_search(Vertex("a"), Vertex("f"))
+    # print("+++++++++++++++++++++++++++++++++++++")
+    # depth_first_search(Vertex("a"), Vertex("f"))
+    # print("+++++++++++++++++++++++++++++++++++++")
+    # depth_first_search_cost(Vertex("a"), Vertex("f"))
 
     # print("●▬▬▬▬ simple_two.graph ▬▬▬▬▬●")
     # handle_graph_file("test/simple_two.graph")
@@ -261,7 +272,12 @@ def main():
     # depth_first_search_cost(Vertex("a"), Vertex("h"))
 
     # print("●▬▬▬▬ simple_three.graph ▬▬▬▬▬●")
-    # handle_graph_file("test/simple_three.graph")
+    handle_graph_file("test/simple_three.graph")
+    breadth_first_search(Vertex("a"), Vertex("f"))
+    print("+++++++++++++++++++++++++++++++++++++")
+    depth_first_search(Vertex("a"), Vertex("f"))
+    print("+++++++++++++++++++++++++++++++++++++")
+    depth_first_search_cost(Vertex("a"), Vertex("f"))
 
     # print("●▬▬▬▬ simple_four.graph ▬▬▬▬▬●")
     # handle_graph_file("test/simple_four.graph")

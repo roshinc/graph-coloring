@@ -1,6 +1,7 @@
+# coding: utf-8
 class Vertex:
     """
-    Class to represent a vertex, holds some common properties to help with coloring.
+    Class to represent a vertex.
     """
     def __init__(self, name):
         """
@@ -9,7 +10,6 @@ class Vertex:
         """
         self.name = name  # Holds the name passed in
         self.adjacent_vertices = list()  # Hold the vertices that are adjacent to this vertex
-        self.color = None  # Hold the color for this vertex
         self.degree = 0  # Hold the degree for this vertex
 
     def add_adjacent(self, adjacent_vertex):
@@ -21,12 +21,6 @@ class Vertex:
         self.degree += 1  # Increase degree every time we add an adjacent vertex
         # self.adjacent_vertices = sorted(self.adjacent_vertices, key=lambda vertex: vertex.degree, reverse=True)
 
-    def set_color(self, color):
-        """
-        Sets the color of the vertex
-        :param color: the color to set
-        """
-        self.color = color
 
     def __eq__(self, other):
         """
@@ -50,5 +44,5 @@ class Vertex:
             adjacent_vertices_str += str(adjacent_vertex.name) + ", "
         return "{} [{}]".format(self.name, adjacent_vertices_str)
         """
-        return "Vertex {} has Color {}".format(self.name, self.color)
+        return "Vertex {}".format(self.name)
 
