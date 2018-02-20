@@ -1,35 +1,20 @@
-# graph-coloring
-### Team 2
-Given the list of edges of an undirected graph, find a coloring of this graph
-
-#### Question 18
-> Q18: Given the list of edges of an undirected graph, find a coloring of this graph using the algorithm given in the exercise set of Section 10.8.
-
-#### From Section 10.8 p.g.743 : 
-> This algorithm can be used to color a simple graph: 
-
->    First, list the vertices v<sub>1</sub>, v<sub>2</sub>, v<sub>3</sub>,..., v<sub>n</sub> in order of decreasing degree so that deg(v<sub>1</sub>) ≥ deg(v<sub>2</sub>) ≥···≥ deg(v<sub>n</sub>). 
-
->    Assign color 1 to v<sub>1</sub> and to the next vertex in the list not adjacent to v<sub>1</sub> (if one exists), and successively to each vertex in the list not adjacent to a vertex already assigned color 1. 
-
->    Then assign color 2 to the first vertex in the list not already colored. Successively assign color 2 to vertices in the list that have not already been colored and are not adjacent to vertices assigned color 2. 
-
->    If uncolored vertices remain, assign color 3 to the first vertex in the list not yet colored, and use color 3 to successively color those vertices not already colored and not adjacent to vertices assigned color 3. Continue this process until all vertices are colored.
-
+# greedy-algorithm
+### Team 1
+We implement Breath-first search, Depth-first search and then our modified DFS with timsort.
 ## Runnig 
 _**This program requires Phython 3.6.0+**_
 
-If you are in the of the program directory you can just do `python main.py`. It outputs the coloring of four graph that are read form the `./test` directory.
+If you are in the of the program directory you can just do `python main.py`. It outputs the path taken by each algorithm for each of the three graph that are read form the `./test` directory.
 
 ## Input
-We represent a simple graph using an adjacency list, i.e a pair of vertices represents an edge.
+We represent a graph using an adjacency list, i.e a pair of vertices represents an edge and a cost for the path.
 
 Below is a simple graph with 4 edges:
 ```
-1,2
-1,3
-3,5
-2,4
+a,b,.2
+c,d,.4
+e,f,.8
+g,h,.3
 ```
 The program takes a graph as a file. Few examples can be see in the `./test` directory which it currently reads form.
 
@@ -71,34 +56,3 @@ _We also allow comments in the test file using back-ticks(\`) as demonstrated ab
 ![image](https://user-images.githubusercontent.com/2994406/33092568-85b24f66-cec8-11e7-8b23-55089645df44.png)
 
 <hr>
-
-#### simple_four.graph
-##### Test File
-![image](https://user-images.githubusercontent.com/2994406/33092726-fa26db46-cec8-11e7-81df-fa4412089105.png)
-##### Result
-![image](https://user-images.githubusercontent.com/2994406/33092602-a384a25a-cec8-11e7-85fc-a25a69f8ddd2.png)
-
-<hr>
-
-## Contributions
-
-### Ideation:
-Finding the algorithm, walking through it on the white-board, deciding how we take the input, determining how we write the input & output.
-
-**Who:** Gokul Ambigapathy, Roshin Cherian, Lakshmi Priya Hariharan, Sean Lachhander, Siddheshwar Kanagamoorthy
-
-### Programing: 
-
-1. **I/O**
-		Reading from file, and make it into a usable format.
-		
-    **Who:** Gokul Ambigapathy, Lakshmi Priya Hariharan
-2. **Algorithm**
-		Programing/Debugging the algorithm, using the data from the previous step to make Vertex objects, and color the graph and show output.
-		
-    **Who:** Roshin Cherian, Sean Lachhander, Siddheshwar Kanagamoorthy
-
-### Wrap-Up
-Creating more test cases, creating/updating readme, testing, documentation.
-
-**Who:** Gokul Ambigapathy, Roshin Cherian, Lakshmi Priya Hariharan, Sean Lachhander, Siddheshwar Kanagamoorthy
