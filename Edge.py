@@ -1,32 +1,28 @@
-class Vertex:
+class Edge:
     """
     Class to represent a vertex, holds some common properties to help with coloring.
     """
-    def __init__(self, name):
+    def __init__(self, to_vertex, cost):
         """
         Constructor for Vertex, initializes class variables.
         :param name: name of the vertex, expected to be int
         """
-        self.name = name  # Holds the name passed in
-        self.adjacent_vertices = list()  # Hold the vertices that are adjacent to this vertex
-        self.color = None  # Hold the color for this vertex
-        self.degree = 0  # Hold the degree for this vertex
+        self.to_vertex = to_vertex  # Hold the vertices that are adjacent to this vertex
+        self.cost = cost  # Hold the color for this vertex
 
-    def add_adjacent(self, adjacent_vertex):
+    def get_vertex(self):
         """
         Adds the given vertex as adjacent to this vertex.
         :param adjacent_vertex: a vertex that is adjacent to this vertex
         """
-        self.adjacent_vertices.append(adjacent_vertex)  # Adds adjacent vertex to adjacency list
-        self.degree += 1  # Increase degree every time we add an adjacent vertex
-        # self.adjacent_vertices = sorted(self.adjacent_vertices, key=lambda vertex: vertex.degree, reverse=True)
+        return self.to_vertex
 
-    def set_color(self, color):
+    def get_cost(self):
         """
         Sets the color of the vertex
         :param color: the color to set
         """
-        self.color = color
+        return self.cost
 
     def __eq__(self, other):
         """
@@ -34,8 +30,8 @@ class Vertex:
         :param other: the vertex to compare aganist
         :return: the result of equality check between the names(ints) of both vertices
         """
-        if isinstance(other, Vertex):
-            return self.name == other.name
+        if isinstance(other, Edge):
+            return self.to_vertex == other.to_vertex
         return False
 
     def __str__(self):
@@ -50,5 +46,5 @@ class Vertex:
             adjacent_vertices_str += str(adjacent_vertex.name) + ", "
         return "{} [{}]".format(self.name, adjacent_vertices_str)
         """
-        return "Vertex {} has Color {}".format(self.name, self.color)
+        return "Vertex {} has Color {}".format(self.to_vertex.name, self.to_vertex.cost)
 

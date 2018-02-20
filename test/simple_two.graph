@@ -1,7 +1,7 @@
-a,b
-a,c
-b,d
-b,e
-c,f
-c,g
-e,h
+a,b,.3
+a,c,.2
+b,d,.1
+b,e,.5
+c,f,.2
+c,g,.1
+e,h,.6
