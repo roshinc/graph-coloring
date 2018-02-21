@@ -108,18 +108,18 @@ def breadth_first_search(source_bfs, goal_bfs):
 
         # if source_bfs is an Edge increment the cost
         if isinstance(source_bfs, Edge):
-            cost += source_bfs.get_cost()
-            path.append(source_bfs.get_vertex().name)
+            cost_bfs += source_bfs.get_cost()
+            path_bfs.append(source_bfs.get_vertex().name)
             # turn source_bfs back into a Vertex for use below
             source_bfs = seen_list[get_index(source_bfs.get_vertex())]
         else:
             # If it is not a Edge, it is the sourse node
-            path.append(source_bfs.name)
+            path_bfs.append(source_bfs.name)
         # check if goal state is reached
         if source_bfs == goal_bfs:
             # print out the path and cost
-            print(path)
-            print(cost)
+            print("BFS Path: {}".format(path_bfs))
+            print("Cost of BFS: " + str(cost_bfs))
             return
 
         # Get all adjacent vertices of the vertex source_bfs. 
@@ -133,7 +133,7 @@ def breadth_first_search(source_bfs, goal_bfs):
         # If a adjacent has not been visited, then mark it visited and enqueue it
         for i in to_visit:
             if seen_list[get_index(i.get_vertex())].name not in visited_dict.keys():
-                queue.append(i)
+                queue_bfs.append(i)
                 visited_dict[seen_list[get_index(i.get_vertex())].name] = True
 
     # If the search has finished and no path has been found
@@ -144,50 +144,47 @@ def depth_first_search_recurr(source_dfs, cost_dfs, path_dfs, visited_dfs, goal_
     """
     Recursive method used by DFS
     :param source_dfs: the current node
-    :param cost: the running total of the cost
-    :param path: the running list of the path
-    :param visited: the running list of the visited nodes
-    :param e: the goal
+    :param cost_dfs: the running total of the cost
+    :param path_dfs: the running list of the path
+    :param visited_dfs: the running list of the visited nodes
+    :param goal_dfs: the goal
     """
 
     # Mark the current node as visited
 
     # if source_dfs is an Edge increments the cost
     if isinstance(source_dfs, Edge):
-        visited[seen_list[get_index(source_dfs.get_vertex())].name] = True
+        visited_dfs[seen_list[get_index(source_dfs.get_vertex())].name] = True
         cost_dfs += source_dfs.get_cost()
-        path.append(source_dfs.get_vertex().name)
+        path_dfs.append(source_dfs.get_vertex().name)
         # turn source_dfs back into a Vertex for use below
         source_dfs = seen_list[get_index(source_dfs.get_vertex())]
     else:
         # If it is not a Edge, it is the start node
-        visited[source_dfs.name] = True
-        path.append(source_dfs.name)
+        visited_dfs[source_dfs.name] = True
+        path_dfs.append(source_dfs.name)
 
     # check if goal state is reached
     if source_dfs == goal_dfs:
-        print(path_dfs)
-        print(visited_dfs)
-        print(cost_dfs)
+        print("DFS Path {}".format(path_dfs))
+        print("Cost of DFS: " + str(cost_dfs))
         return
 
     # Get all adjacent vertices of the poped vertex s.
-
-
     # if it is not the head remove the first element as it will reference the parent
 
-    if v != head_node:
-        to_visit = seen_list[get_index(v)].adjacent_vertices[1:]
+    if source_dfs != head_node:
+        to_visit = seen_list[get_index(source_dfs)].adjacent_vertices[1:]
     else:
-        to_visit = seen_list[get_index(v)].adjacent_vertices
+        to_visit = seen_list[get_index(source_dfs)].adjacent_vertices
 
     # If a adjacent has not been visited, then mark it visited and enqueue it
 
     # Recur for all the vertices adjacent to this vertex
     for i in to_visit:
-        if seen_list[get_index(i.get_vertex())].name not in visited.keys():
+        if seen_list[get_index(i.get_vertex())].name not in visited_dfs.keys():
             # recursive call with adjacent vertex
-            depth_first_search_recurr(i, cost, path, visited, e)
+            depth_first_search_recurr(i, cost_dfs, path_dfs, visited_dfs, goal_dfs)
 
 
 def depth_first_search(v, e):
@@ -222,18 +219,18 @@ def depth_first_search_with_timsort_recurr(source_greedy_dfs, cost_greedy_dfs, p
     # Mark the current node as visited and print it
 
     if isinstance(source_greedy_dfs, Edge):
-        visited[seen_list[get_index(source_greedy_dfs.get_vertex())].name] = True
+        visited_greedy_dfs[seen_list[get_index(source_greedy_dfs.get_vertex())].name] = True
 
         cost_greedy_dfs += source_greedy_dfs.get_cost()
         path_greedy_dfs.append(source_greedy_dfs.get_vertex().name)
         source_greedy_dfs = seen_list[get_index(source_greedy_dfs.get_vertex())]
     else:
-        visited[source_greedy_dfs.name] = True
+        visited_greedy_dfs[source_greedy_dfs.name] = True
         path_greedy_dfs.append(source_greedy_dfs.name)
 
     if source_greedy_dfs == e:
-        print(path_greedy_dfs)
-        print(cost_greedy_dfs)
+        print("Greedy DFS Path: {}".format(path_greedy_dfs))
+        print("Cost of Greedy DFS: {}".format(cost_greedy_dfs))
         return
 
     # Get all adjacent vertices of the poped vertex. 
@@ -249,8 +246,8 @@ def depth_first_search_with_timsort_recurr(source_greedy_dfs, cost_greedy_dfs, p
 
     # Recur for all non visited  vertices adjacent to this vertex
     for i in to_visit:
-        if seen_list[get_index(i.get_vertex())].name not in visited.keys():
-            depth_first_search_with_timsort_recurr(i, cost_greedy_dfs, path_greedy_dfs, visited, e)
+        if seen_list[get_index(i.get_vertex())].name not in visited_greedy_dfs.keys():
+            depth_first_search_with_timsort_recurr(i, cost_greedy_dfs, path_greedy_dfs, visited_greedy_dfs, e)
 
 #
 

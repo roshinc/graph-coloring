@@ -1,6 +1,9 @@
 # greedy-algorithm
+
 ### Team 1
 We implement Breath-first search, Depth-first search and then our modified DFS with timsort.
+
+
 ## Runnig 
 _**This program requires Phython 3.6.0+**_
 
@@ -9,50 +12,63 @@ If you are in the of the program directory you can just do `python main.py`. It 
 ## Input
 We represent a graph using an adjacency list, i.e a pair of vertices represents an edge and a cost for the path.
 
-Below is a simple graph with 4 edges:
+Below is a simple graph:
 ```
-a,b,.2
-c,d,.4
-e,f,.8
-g,h,.3
+a,b,.5
+b,c,.6
+c,f,.7
+a,d,.1
+d,e,.2
+e,f,.4
 ```
 The program takes a graph as a file. Few examples can be see in the `./test` directory which it currently reads form.
 
-## Output
-For each vertices in the graph we output in the form `Vertex VertexName has Color ColorName`.
+Depending on which file you want to use, you call `handle_graph_file("test/simple_one.graph")`. This loads the contents of the file `test/simple_one.graph` as a graph
 
-Below is the result of running the program of the graph in the [**Input**](https://github.com/roshinc/graph-coloring/blob/master/README.md#input) section:
+Then you call the function you want in the main method like `depth_first_search(Vertex("a"), Vertex("f"))`. Here depth_first_search refers to our implementation of the DFS algorithm and prints out a path from "a" to "b" based on the graph we loaded in.
+
+As an example all three algorithms are being called and there outputs printed when you run `main.py`
+
+
+## Output
+
+Below is the result of running all three algorithms on the graph in the **Input** section:
 ```
-Vertex 1 has Color 1
-Vertex 5 has Color 1
-Vertex 4 has Color 1
-Vertex 2 has Color 2
-Vertex 3 has Color 2
++   breadth_first_search   +
+BFS Path: ['a', 'b', 'd', 'c', 'e', 'f']
+Cost of BFS: 2.0999999999999996
++   depth_first_search   +
+DFS Path ['a', 'b', 'c', 'f']
+Cost of DFS: 1.8
++   depth_first_search_with_timsort   +
+Greedy DFS Path: ['a', 'd', 'e', 'f']
+Cost of Greedy DFS: 0.7000000000000001
 ```
 ## Examples
 
 #### simple_one.graph
 ##### Test File
-![image](https://user-images.githubusercontent.com/2994406/33092367-f55556d4-cec7-11e7-9169-1c3a3b2bafdc.png)
+![image](https://i.imgur.com/vUJYlcp.png)
 
 _We also allow comments in the test file using back-ticks(\`) as demonstrated above._
 ##### Result
-![image](https://user-images.githubusercontent.com/2994406/33092493-4749b070-cec8-11e7-8e08-baa940761d7c.png)
+![image](https://i.imgur.com/ZRYnmTw.png)
 
 <hr>
+<br>
+<br>
 
 #### simple_two.graph
 ##### Test File
-![image](https://user-images.githubusercontent.com/2994406/33092656-c51e58d4-cec8-11e7-8ce5-e3d72740bfca.png)
+![image](https://i.imgur.com/j1jLzfo.png)
 ##### Result
-![image](https://user-images.githubusercontent.com/2994406/33092540-6b7b00ca-cec8-11e7-8666-7f16600da6e9.png)
+![image](https://i.imgur.com/pWvE9lQ.png)
 
 <hr>
 
 #### simple_three.graph
 ##### Test File
-![image](https://user-images.githubusercontent.com/2994406/33092699-e3430d1e-cec8-11e7-9c34-e2b206470e36.png)
+![image](https://i.imgur.com/D7pcQz4.png)
 ##### Result
-![image](https://user-images.githubusercontent.com/2994406/33092568-85b24f66-cec8-11e7-8b23-55089645df44.png)
+![image](https://i.imgur.com/1cf20L2.pngg)
 
-<hr>

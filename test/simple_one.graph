@@ -1,5 +1,6 @@
 `This is a simple graph:
-`Each line represents a edge, e.g. the first line represents the edge going from Vertex 1 to Vertex 2`
+`Each line represents a edge, e.g. the first line represents the edge going from Vertex a being
+`connected to Vertex b and that edge have a cost of .5`
 a,b,.5
 b,c,.6
 c,f,.7
